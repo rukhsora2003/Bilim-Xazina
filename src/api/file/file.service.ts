@@ -33,9 +33,11 @@ export class FileService {
 
     async deleteFile(file_name: string): Promise<void> {
         try {
-            // const file = (file_name as string).replace(prefix, '');
-            // const file_path = resolve(__dirname, '..', '..', '..', '..', 'base', file);
-
+            const prefix = `${this.base_url}`;
+            const file = (file_name as string).replace(prefix, '');
+            const file_path = resolve(__dirname, '..', '..', '..', '..', 'base', file);
+            if(!existsSync(file_path)) throw new BadRequestException(`File does not exist: ${file_name}`);
+            await new Promise<void>((resolve, reject) => {})
         } catch (error) {
             throw new BadRequestException(`Error on deleting file: ${error}`)
         }
